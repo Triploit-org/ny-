@@ -6,12 +6,13 @@ import java.util.List;
 import java.util.Scanner;
 
 import Statements.Files;
+import Statements.Statement;
 
 public class Parser {
 
 	public static List<String> gtn = new ArrayList<String>();
 
-	public static int[] val = {0,0,0,0,0,0,0,0,0,0};
+	public static int[] val = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 	public static int valc = 0;
 	public static int ln = 0;
 
@@ -82,6 +83,15 @@ public class Parser {
 
 			if (c == ' ' || c == '	' || c == '\n' || c == ';' || c == ']' || c == '@' || c == '_')
 			{
+				for (int y = i+1; src[y] == ' ' || src[y] == '	' || src[y] == '\t' || src[y] == '\n' || src[y] == ';'; y++)
+				{
+					//i = y+1;
+
+					if (y >= src.length)
+					{
+						print("Error! Konnte den Code nicht parsen: Index out of Bounds/Index verlässt den Bereich des Arrays!");
+					}
+				}
 				cmd1 = "";
 			}
 
@@ -108,7 +118,7 @@ public class Parser {
 			}
 
 			cmd = cmd1.replace("null", "").toUpperCase();
-			//print(""+cmd);
+			//print("GET -> "+cmd);
 
 
 			if (!kmt)
@@ -323,6 +333,17 @@ public class Parser {
 						int cell = Integer.parseInt(nm);
 						Scanner s = new Scanner(System.in);
 						String in = s.nextLine();
+
+						if (in.equalsIgnoreCase("q") || in.equalsIgnoreCase("exit") || in.equalsIgnoreCase("quit"))
+						{
+							System.exit(0);
+						}
+
+						if (in.equals(""))
+						{
+							continue;
+						}
+
 						try
 						{
 							int value = Integer.parseInt(in);
@@ -388,6 +409,8 @@ public class Parser {
 						return 0;
 					}
 				}
+
+
 
 				// PSTR
 
@@ -648,7 +671,285 @@ public class Parser {
 					System.exit(0);
 				}
 
-				if (cmd.equals("IF"))
+				// EQUALS
+
+				if (cmd.equals("EQ"))
+				{
+					for(int x = i + 1; (src[x]+"").matches("\\s"); x++)
+					{
+						i = x+1;
+					}
+					i = i + 1;
+
+					String nm = "";
+					String[] arg;
+					try
+					{
+						for(int x = i; !(src[x]+"").matches(";"); x++)
+						{
+							nm += src[x];
+							i = x;
+							//print("Hohle EQ: "+nm.replace(";", ""));
+						}
+					}
+					catch(Exception ex)
+					{
+						print("Wurde nach einem Befehl vielleicht ein \";\" vergessen?");
+					}
+					nm = nm.replace(",", " ");
+					nm = nm.replace("#", " ");
+
+					//print("= "+nm);
+					arg = nm.split(" ");
+
+					try
+					{
+						int ce = Integer.parseInt(arg[0]);
+						int v = Integer.parseInt(arg[1]);
+						String m = arg[2];
+
+						//print("Cell: "+ce);
+						//print("Vall: "+v);
+						//print("Poin: "+m);
+
+						if (val[ce] == v)
+						{
+							for (int d = 0; d < gtn.size(); d++)
+							{
+								String[] dv = gtn.get(d).split("-");
+								String gn = dv[0];
+								int gi = Integer.parseInt(dv[1]);
+
+								//print("GN: "+gn);
+								//print("GI: "+gi+"\n");
+
+								if (gn.equals(m))
+								{
+									i = gi;
+								}
+							}
+						}
+						else
+						{
+						}
+
+					}
+					catch (Exception ex)
+					{
+						print("Ist die Zelle eine Zelle und sind die ersten Argumente Zahlen?");
+					}
+				}
+
+				// NOT EQUALS
+
+				if (cmd.equals("NEQ"))
+				{
+					for(int x = i + 1; (src[x]+"").matches("\\s"); x++)
+					{
+						i = x+1;
+					}
+					i = i + 1;
+
+					String nm = "";
+					String[] arg;
+					try
+					{
+						for(int x = i; !(src[x]+"").matches(";"); x++)
+						{
+							nm += src[x];
+							i = x;
+							//print("Hohle EQ: "+nm.replace(";", ""));
+						}
+					}
+					catch(Exception ex)
+					{
+						print("Wurde nach einem Befehl vielleicht ein \";\" vergessen?");
+					}
+					nm = nm.replace(",", " ");
+					nm = nm.replace("#", " ");
+
+					//print("= "+nm);
+					arg = nm.split(" ");
+
+					try
+					{
+						int ce = Integer.parseInt(arg[0]);
+						int v = Integer.parseInt(arg[1]);
+						String m = arg[2];
+
+						//print("Cell: "+ce);
+						//print("Vall: "+v);
+						//print("Poin: "+m);
+
+						if (val[ce] != v)
+						{
+							for (int d = 0; d < gtn.size(); d++)
+							{
+								String[] dv = gtn.get(d).split("-");
+								String gn = dv[0];
+								int gi = Integer.parseInt(dv[1]);
+
+								//print("GN: "+gn);
+								//print("GI: "+gi+"\n");
+
+								if (gn.equals(m))
+								{
+									i = gi;
+								}
+							}
+						}
+						else
+						{
+						}
+
+					}
+					catch (Exception ex)
+					{
+						print("Ist die Zelle eine Zelle und sind die ersten Argumente Zahlen?");
+					}
+				}
+
+				// KleinerGleich  "<="
+
+				if (cmd.equals("KEQ"))
+				{
+					for(int x = i + 1; (src[x]+"").matches("\\s"); x++)
+					{
+						i = x+1;
+					}
+					i = i + 1;
+
+					String nm = "";
+					String[] arg;
+					try
+					{
+						for(int x = i; !(src[x]+"").matches(";"); x++)
+						{
+							nm += src[x];
+							i = x;
+							//print("Hohle EQ: "+nm.replace(";", ""));
+						}
+					}
+					catch(Exception ex)
+					{
+						print("Wurde nach einem Befehl vielleicht ein \";\" vergessen?");
+					}
+					nm = nm.replace(",", " ");
+					nm = nm.replace("#", " ");
+
+					//print("= "+nm);
+					arg = nm.split(" ");
+
+					try
+					{
+						int ce = Integer.parseInt(arg[0]);
+						int v = Integer.parseInt(arg[1]);
+						String m = arg[2];
+
+						//print("Cell: "+ce);
+						//print("Vall: "+v);
+						//print("Poin: "+m);
+
+						if (val[ce] < v)
+						{
+							for (int d = 0; d < gtn.size(); d++)
+							{
+								String[] dv = gtn.get(d).split("-");
+								String gn = dv[0];
+								int gi = Integer.parseInt(dv[1]);
+
+								//print("GN: "+gn);
+								//print("GI: "+gi+"\n");
+
+								if (gn.equals(m))
+								{
+									i = gi;
+								}
+							}
+						}
+						else
+						{
+						}
+
+					}
+					catch (Exception ex)
+					{
+						print("Ist die Zelle eine Zelle und sind die ersten Argumente Zahlen?");
+					}
+				}
+
+				// GrößerGleich   ">="
+
+				if (cmd.equals("GEQ"))
+				{
+					for(int x = i + 1; (src[x]+"").matches("\\s"); x++)
+					{
+						i = x+1;
+					}
+					i = i + 1;
+
+					String nm = "";
+					String[] arg;
+					try
+					{
+						for(int x = i; !(src[x]+"").matches(";"); x++)
+						{
+							nm += src[x];
+							i = x;
+							//print("Hohle EQ: "+nm.replace(";", ""));
+						}
+					}
+					catch(Exception ex)
+					{
+						print("Wurde nach einem Befehl vielleicht ein \";\" vergessen?");
+					}
+					nm = nm.replace(",", " ");
+					nm = nm.replace("#", " ");
+
+					//print("= "+nm);
+					arg = nm.split(" ");
+
+					try
+					{
+						int ce = Integer.parseInt(arg[0]);
+						int v = Integer.parseInt(arg[1]);
+						String m = arg[2];
+
+						//print("Cell: "+ce);
+						//print("Vall: "+v);
+						//print("Poin: "+m);
+
+						if (val[ce] > v)
+						{
+							for (int d = 0; d < gtn.size(); d++)
+							{
+								String[] dv = gtn.get(d).split("-");
+								String gn = dv[0];
+								int gi = Integer.parseInt(dv[1]);
+
+								//print("GN: "+gn);
+								//print("GI: "+gi+"\n");
+
+								if (gn.equals(m))
+								{
+									i = gi;
+								}
+							}
+						}
+						else
+						{
+						}
+
+					}
+					catch (Exception ex)
+					{
+						print("Ist die Zelle eine Zelle und sind die ersten Argumente Zahlen?");
+					}
+				}
+
+				// IF -> NOT WORKING
+
+				if (cmd.equals("IFQ-X1123gH45"))
 				{
 					uSpace(src, i);
 
@@ -695,8 +996,16 @@ public class Parser {
 								{
 									try
 									{
-										com1 = con[x] + " " + con[x+1];
-										com = com1.split(" ");
+										if (con[x+1].equals("ELSE"))
+										{
+											System.out.println("*[ERR] Nach einer Goto-Anweisung muss eine 0 stehen! (IF ... == ... <ABC> 0 ELSE ...)");
+											return 0;
+										}
+										else
+										{
+											com1 = con[x] + " " + con[x+1];
+											com = com1.split(" ");
+										}
 									}
 									catch (Exception ex)
 									{
@@ -713,10 +1022,10 @@ public class Parser {
 									
 									if (com[0].startsWith("<"))
 									{
-										//print("GOTO in IF erkannt!");
+										print("GOTO in IF erkannt!");
 										
-										String nm1 = com[0].replace("<", "").replace(">", "");
-										//print(nm1+"##");
+										String nm1 = com[0].replace("<", "").replace(">", "").replace(";", "");
+										print(nm1+"##");
 										
 										for(int x1 = 0; x1<gtn.size(); x1++)
 										{
@@ -725,14 +1034,14 @@ public class Parser {
 											if(name[0].equals(nm1))
 											{
 												i = Integer.parseInt(name[1]);
-												//System.out.println();
-												//print("[GT] I: "+i);
-												//print("[GT] NM0: \""+name[0]+"\"");
-												//print("[GT] NM1: "+name[1]+"\n");
+												System.out.println();
+												print("[GT] I: "+i);
+												print("[GT] NM0: \""+name[0]+"\"");
+												print("[GT] NM1: "+name[1]+"\n");
 												
-												//print("[GT] SEARCHF: \""+nm1+"\"");
-												//
-//												print("[GT] Exists "+i);
+												print("[GT] SEARCHF: \""+nm1+"\"");
+
+												print("[GT] Exists "+i);
 											}
 
 										}
@@ -769,12 +1078,12 @@ public class Parser {
 
 						com1 = com1+";";
 						com2 = com2+";";
-						//print("C1: \""+com1+"\"\n	C2: \""+com2+"\"\n");
+						print("C1: \""+com1+"\"\n	C2: \""+com2+"\"\n");
 
 						if (con[0] != "")
 						{
 							cell = Integer.parseInt(con[0].replace("#", ""));
-							if (cell <10&&cell>=0)
+							if (cell < val.length && cell >= 0)
 								System.out.print("");
 							else
 								System.out.println("[IF] Zelle nicht gefunden!");
@@ -785,25 +1094,28 @@ public class Parser {
 							try
 							{
 								arg = Integer.parseInt(con[2]);
-								//print("ARG: "+arg);
-								//print("CELL: "+val[cell]);
+								print("ARG: "+arg);
+								print("CELL: "+val[cell]);
+
 								if(val[cell] == arg)
 								{
 									Parser.parse(com1, ln);
-									//print("[IF] TRUE; \""+com1+"\"");
+									print("[IF] TRUE; \""+com1+"\"");
 								}
 								else
 								{
 									if (com2.equalsIgnoreCase("NOTH"))
 									{
-										//Parser.parse(com2, 0);
-										//print("[IF] DONOTH");
+										Parser.parse(com2, 0);
+										print("[IF] DONOTH");
 									}
 									else
 									{
-										Parser.parse(com2, ln);
+										com2 = com2.replace("<", "").replace(">", "").replace(";", "");
+										com2 = "GT "+com2+";";
+										print("[IF] FALSE: RUN \""+com2+"\"");
+										Goto(com2, i, src);
 									}
-									//print("[IF] FALSE; \""+com2+"\"");
 								}
 							}
 							catch (Exception ex)
@@ -821,7 +1133,7 @@ public class Parser {
 								if(val[cell] != arg)
 								{
 									Parser.parse(com1, ln);
-									//print("[IFN] TRUE");
+									print("[IFN] TRUE");
 								}
 								else
 								{
@@ -833,7 +1145,7 @@ public class Parser {
 									{
 										Parser.parse(com2, ln);
 									}
-									//print("[IFN] FALSE");
+									print("[IFN] FALSE");
 								}
 							}
 							catch (Exception ex)
@@ -903,7 +1215,7 @@ public class Parser {
 					}
 					else
 					{
-						print("[MAIN] Error: "+Main.afile+": Mainfile is \""+Main.mainfile+"\"!");
+						print(" [MAIN] Error: "+Main.afile+": Mainfile is \""+Main.mainfile+"\"!");
 					}
 				}
 
@@ -939,8 +1251,62 @@ public class Parser {
 
 	public static void print(String t)
 	{
-		System.out.println("* [SYS] "+t);
+		System.out.println("* [SYS:"+ln+"] "+t);
 		//System.out.println(Colors.ANSI_CYAN+"	Zeile: "+ln);
+	}
+
+	public static void Goto(String t, int i, char[] src)
+	{
+		for(int x = i + 1; (src[x]+"").matches("\\s"); x++)
+		{
+			i = x;
+		}
+
+		i = i + 1;
+		String nm = "";
+
+		try
+		{
+			for(int x = i; !(src[x]+"").matches(";"); x++)
+			{
+				nm += src[x];
+				i = x;
+				//print("Hohle Zahl: "+nm.replace(";", ""));
+			}
+		}
+		catch(Exception ex)
+		{
+			print("Wurde nach einem Befehl vielleicht ein \";\" vergessen?");
+		}
+		nm = nm.replace("#", "");
+		nm = nm.replace(" ", "");
+		nm = nm.replace(";", "");
+		nm = nm.replace("{", "");
+		nm = nm.replace("}", "");
+
+		try
+		{
+			for(int x = 0; x<gtn.size(); x++)
+			{
+				String name[] = gtn.get(x).split("-");
+
+				if(name[0].equals(nm))
+				{
+					i = Integer.parseInt(name[1]);
+					//print("[GT] I: "+i);
+					//print("[GT] NM0: \""+name[0]+"\"");
+					//print("[GT] NM1: "+name[1]);
+					//print("[GT] SEARCHF: \""+nm+"\"");
+					//print("[GT] Exists "+i);
+				}
+
+			}
+		}
+		catch (Exception ex)
+		{
+			print("[GT] Error in der Programmierung!");
+			return;
+		}
 	}
 
 	public static void write(String t)
