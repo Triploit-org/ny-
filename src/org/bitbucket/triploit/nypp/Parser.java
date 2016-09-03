@@ -20,6 +20,7 @@ public class Parser {
 	public static String cmds;
 	public static String cmd1;
 	public static String cmd;
+	public static boolean osf;
 	public static String input = "";
 
 	public static boolean kmt = false;
@@ -352,7 +353,7 @@ public class Parser {
 						}
 						catch (Exception ex)
 						{
-							print("[IN] Der eingegebene Input war wohlmöglich keine Zahl!");
+							print("[IN] Der eingegebene Input war wohlmöglich keine Zahl oder die Zelle konnte nicht gefunden werden!");
 							return 0;
 						}
 						//print("CELL: "+valc);
@@ -1206,6 +1207,11 @@ public class Parser {
 					Files.wnd = false;
 				}
 
+				if (cmd.equals("[OS"))
+				{
+					osf = true;
+				}
+
 				if (cmd.equals("[MAIN"))
 				{
 					if (Main.mainfile.equals("NOTSETALPHA3DA"))
@@ -1338,7 +1344,7 @@ public class Parser {
 
 	public static void uSpace(char[] src, int i)
 	{
-		for(int x = i + 1; (src[x]+"").matches("\\s"); x++)
+		for(int x = i + 1; (src[x]+"").matches("\\s") || (src[x]+"").matches(";") || (src[x]+"").matches("\\t") || (src[x]+"").matches(" ") || (src[x]+"").matches(",") || (src[x]+"").matches("	"); x++)
 		{
 			i = x;
 		}
