@@ -266,16 +266,16 @@ EQ überprüft ob eine Zelle einem Wert **nicht** gleicht. Wenn das so ist, spri
     neq	#0,1,anfang;
 
 Hier wird überprüft, ob #0 den Wert 1 beinhaltet, wenn dies so ist, dann geht er zur Sprungmarke `anfang`.
-####**KEQ**
+####**LEQ**
 
-KEQ überprüft ob ein Wert kleiner ist als ein Anderer. Wenn das so ist, springt es zu einer Sprungmarke:
+LEQ überprüft ob ein Wert kleiner ist als ein Anderer. Wenn das so ist, springt es zu einer Sprungmarke:
 
-    keq	#0,1,anfang;
+    leq	#0,1,anfang;
 
 Hier wird überprüft, ob #0 den Wert 1 beinhaltet, wenn dies so ist, dann geht er zur Sprungmarke `anfang`.
 ####**GEQ**
 
-KEQ überprüft ob ein Wert größer ist als ein Anderer. Wenn das so ist, springt es zu einer Sprungmarke:
+LEQ überprüft ob ein Wert größer ist als ein Anderer. Wenn das so ist, springt es zu einer Sprungmarke:
 
     geq	#0,1,anfang;
 

@@ -929,7 +929,7 @@ public class Parser {
 
 				// KleinerGleich  "<="
 
-				if (cmd.equals("KEQ"))
+				if (cmd.equals("LEQ"))
 				{
 					for(int x = i + 1; (src[x]+"").matches("\\s"); x++)
 					{
