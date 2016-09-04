@@ -19,7 +19,7 @@
   eq    #0,4,D;
   eq    #0,5,E;
 
-  keq   #0,1,ERR; ? IF #0 < 1 GOTO ERR ?
+  leq   #0,1,ERR; ? IF #0 < 1 GOTO ERR ?
   geq   #0,5,ERR; ? IF #0 > 4 GOTO ERR ?
 
   neq   #0,1,ERR; ? Kommentar ?
@@ -76,3 +76,6 @@
   op      openme.ny;
   say     "Datei wurde beendet!";@
   gt      main;
+  [end]
+
+[end]
