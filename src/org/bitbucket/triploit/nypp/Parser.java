@@ -264,7 +264,7 @@ public class Parser {
 					}
 					catch(Exception ex)
 					{
-						print("Wurde nach einem Befehl vielleicht ein \";\" vergessen?");
+						print("Wurde nach einem Befehl vieleleicht ein \";\" vergessen?");
 					}
 					nm = nm.replace(";", "");
 					nm = nm.replace(" ", "");
@@ -279,14 +279,22 @@ public class Parser {
 							int valcf = Integer.parseInt(nm);
 							val[valc] -= val[valcf];
 						}
+						else if (nm.equalsIgnoreCase("(rnd)"))
+						{
+							Random rand = new Random();
+
+							int random = rand.nextInt((9999 - 0) + 1) + 0;
+							val[valc] -= random;
+						}
 						else
 						{
 							val[valc] -= Integer.parseInt(nm);
 						}
+						//print("VALUE: "+val[valc]);
 					}
 					catch (Exception ex)
 					{
-						print("[REM] Ist \""+nm+"\" eine Zahl oder fehlt ein \";\"?");
+						print("[ADD] Ist \""+nm+"\" eine Zahl oder fehlt ein \";\"?");
 						return 0;
 					}
 				}

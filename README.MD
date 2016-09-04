@@ -56,6 +56,9 @@ Um nun zum Beispiel den Wert von Zelle #1 auf 301 zu setzen, benutzen wir entwed
 * MOV
 	> Mov löscht die Zelle zuerst und setzt dann ihren Wert.
 
+* REM
+  > Wurde noch nicht angesprochen, zieht einen Wert ab.
+
 Beides kann früher oder später, wenn man es nicht begriffen hat, zu Fehlern führen. Ein Beispiel dafür:
 Wie wollen jetzt eine Zelle zwei mal verändern, zuerst tue ich das mit ADD, dan mit MOV.
 
@@ -97,6 +100,24 @@ Bei MOV dann so:
     cell #3;
     mov #2;
 Am Ende steht dann die 1 in #3, da sie dorthin verschoben wird. Natürlich behält auch #2 ihren Wert.
+
+* REM
+
+    cell #3;
+    add 2;
+    rem 2;    
+
+Zur Zelle #3 wird am Anfang 2 dazugezählt und dann wieder 2 abgezogen. Dies geht natürlich auch mit Zellen.
+
+**Zellen auf 0 setzen**
+
+Das geht mit der Funktion `del [zelle];`, diese Funktion löscht den Wert von einer Zelle komplett:
+
+    cell #3;
+    add 3;
+    del #3;
+
+Am Anfang werden 3 hinzugezählt und dann wird der Wert auf 0 gesetzt. So einfach ist das.
 
 ###**1.0.1 Header**
 
