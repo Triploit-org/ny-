@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Random;
 
 import Statements.Files;
 import Statements.Statement;
@@ -156,7 +157,23 @@ public class Parser {
 
 					try
 					{
-						val[valc] += Integer.parseInt(nm);
+						if (nm.startsWith("#"))
+						{
+							nm = nm.replace("#", "");
+							int valcf = Integer.parseInt(nm);
+							val[valc] += val[valcf];
+						}
+						else if (nm.equalsIgnoreCase("(rnd)"))
+						{
+							Random rand = new Random();
+
+							int random = rand.nextInt((9999 - 0) + 1) + 0;
+							val[valc] += random;
+						}
+						else
+						{
+							val[valc] += Integer.parseInt(nm);
+						}
 						//print("VALUE: "+val[valc]);
 					}
 					catch (Exception ex)
@@ -198,8 +215,16 @@ public class Parser {
 
 					try
 					{
-						val[valc] -= Integer.parseInt(nm);
-						//print("VALUE: "+val[valc]);
+						if (nm.startsWith("#"))
+						{
+							nm = nm.replace("#", "");
+							int valcf = Integer.parseInt(nm);
+							val[valc] -= val[valcf];
+						}
+						else
+						{
+							val[valc] -= Integer.parseInt(nm);
+						}
 					}
 					catch (Exception ex)
 					{
@@ -1245,7 +1270,7 @@ public class Parser {
 				if (cmd.equals("[END"))
 				{
 					System.out.println();
-					System.exit(0);
+					return 0;
 				}
 				
 			}
