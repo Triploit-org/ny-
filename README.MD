@@ -102,7 +102,9 @@ Bei MOV dann so:
 Am Ende steht dann die 1 in #3, da sie dorthin verschoben wird. Natürlich behält auch #2 ihren Wert.
 
 * REM
+
 Die Zelle wird gelöscht:
+
     cell #3;
     add 2;
     rem 2;    
