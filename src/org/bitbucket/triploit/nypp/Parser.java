@@ -13,7 +13,7 @@ public class Parser {
 
 	public static List<String> gtn = new ArrayList<String>();
 
-	public static int[] val = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+	public static int[] val = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 	public static int valc = 0;
 	public static int ln = 0;
 
@@ -85,14 +85,16 @@ public class Parser {
 
 			if (c == ' ' || c == '	' || c == '\n' || c == ';' || c == ']' || c == '@' || c == '_')
 			{
+				if (i >= src.length)
+				{
+					print("Error! Konnte den Code nicht parsen: Index out of Bounds/Index verlässt den Bereich des Arrays!");
+				}
+
 				for (int y = i+1; src[y] == ' ' || src[y] == '	' || src[y] == '\t' || src[y] == '\n' || src[y] == ';'; y++)
 				{
 					//i = y+1;
 
-					if (y >= src.length)
-					{
-						print("Error! Konnte den Code nicht parsen: Index out of Bounds/Index verlässt den Bereich des Arrays!");
-					}
+
 				}
 				cmd1 = "";
 			}
@@ -173,6 +175,62 @@ public class Parser {
 						else
 						{
 							val[valc] += Integer.parseInt(nm);
+						}
+						//print("VALUE: "+val[valc]);
+					}
+					catch (Exception ex)
+					{
+						print("[ADD] Ist \""+nm+"\" eine Zahl oder fehlt ein \";\"?");
+						return 0;
+					}
+				}
+
+				if (cmd.equals("MOV"))
+				{
+					for(int x = i + 1; (src[x]+"").matches("\\s"); x++)
+					{
+						i = x;
+					}
+
+					i = i + 1;
+					String nm = "";
+
+					try
+					{
+						for(int x = i; !(src[x]+"").matches(";"); x++)
+						{
+							nm += src[x];
+							i = x;
+							//print("Hohle Zahl: "+nm.replace(";", ""));
+						}
+					}
+					catch(Exception ex)
+					{
+						print("Wurde nach einem Befehl vieleleicht ein \";\" vergessen?");
+					}
+					nm = nm.replace(";", "");
+					nm = nm.replace(" ", "");
+
+					//print("[ADD] \""+nm+"\"");
+
+					try
+					{
+						if (nm.startsWith("#"))
+						{
+							nm = nm.replace("#", "");
+							int valcf = Integer.parseInt(nm);
+							val[valc] = val[valcf];
+						}
+						else if (nm.equalsIgnoreCase("(rnd)"))
+						{
+							Random rand = new Random();
+
+							int random = rand.nextInt((9999 - 0) + 1) + 0;
+							val[valc] = random;
+						}
+						else
+						{
+							val[valc] = Integer.parseInt(nm);
 						}
 						//print("VALUE: "+val[valc]);
 					}
@@ -318,6 +376,7 @@ public class Parser {
 					catch (Exception ex)
 					{
 						print("[OP] Ist \""+nm+"\" eine Datei oder fehlt ein \";\"?");
+						ex.printStackTrace();
 						return 0;
 					}
 				}
@@ -573,6 +632,7 @@ public class Parser {
 
 								val[v1] = val[v1] + val[v2];
 								val[v2] = 0;
+								//System.out.println("V1 = "+v1);
 							}
 						}
 						else if (nm.contains("-"))
@@ -723,19 +783,31 @@ public class Parser {
 						print("Wurde nach einem Befehl vielleicht ein \";\" vergessen?");
 					}
 					nm = nm.replace(",", " ");
-					nm = nm.replace("#", " ");
 
 					//print("= "+nm);
 					arg = nm.split(" ");
 
+
 					try
 					{
 						int ce = Integer.parseInt(arg[0]);
-						int v = Integer.parseInt(arg[1]);
+						int v; //= Integer.parseInt(arg[1]);
 						String m = arg[2];
 
+						if (arg[1].startsWith("#"))
+						{
+							arg[1] = arg[1].replace("#", "");
+							int valcf = Integer.parseInt(arg[1]);
+							v = val[valcf];
+							//print("Zelle!");
+						}
+						else
+						{
+							v = Integer.parseInt(arg[1]);
+						}
+
 						//print("Cell: "+ce);
-						//print("Vall: "+v);
+						//print("Vall/Cell: "+v);
 						//print("Poin: "+m);
 
 						if (val[ce] == v)
@@ -792,19 +864,31 @@ public class Parser {
 						print("Wurde nach einem Befehl vielleicht ein \";\" vergessen?");
 					}
 					nm = nm.replace(",", " ");
-					nm = nm.replace("#", " ");
 
 					//print("= "+nm);
 					arg = nm.split(" ");
 
+
 					try
 					{
 						int ce = Integer.parseInt(arg[0]);
-						int v = Integer.parseInt(arg[1]);
+						int v; //= Integer.parseInt(arg[1]);
 						String m = arg[2];
 
+						if (arg[1].startsWith("#"))
+						{
+							arg[1] = arg[1].replace("#", "");
+							int valcf = Integer.parseInt(arg[1]);
+							v = val[valcf];
+							//print("Zelle!");
+						}
+						else
+						{
+							v = Integer.parseInt(arg[1]);
+						}
+
 						//print("Cell: "+ce);
-						//print("Vall: "+v);
+						//print("Vall/Cell: "+v);
 						//print("Poin: "+m);
 
 						if (val[ce] != v)
@@ -861,19 +945,31 @@ public class Parser {
 						print("Wurde nach einem Befehl vielleicht ein \";\" vergessen?");
 					}
 					nm = nm.replace(",", " ");
-					nm = nm.replace("#", " ");
 
 					//print("= "+nm);
 					arg = nm.split(" ");
 
+
 					try
 					{
 						int ce = Integer.parseInt(arg[0]);
-						int v = Integer.parseInt(arg[1]);
+						int v; //= Integer.parseInt(arg[1]);
 						String m = arg[2];
 
+						if (arg[1].startsWith("#"))
+						{
+							arg[1] = arg[1].replace("#", "");
+							int valcf = Integer.parseInt(arg[1]);
+							v = val[valcf];
+							//print("Zelle!");
+						}
+						else
+						{
+							v = Integer.parseInt(arg[1]);
+						}
+
 						//print("Cell: "+ce);
-						//print("Vall: "+v);
+						//print("Vall/Cell: "+v);
 						//print("Poin: "+m);
 
 						if (val[ce] < v)
@@ -930,19 +1026,31 @@ public class Parser {
 						print("Wurde nach einem Befehl vielleicht ein \";\" vergessen?");
 					}
 					nm = nm.replace(",", " ");
-					nm = nm.replace("#", " ");
 
 					//print("= "+nm);
 					arg = nm.split(" ");
 
+
 					try
 					{
 						int ce = Integer.parseInt(arg[0]);
-						int v = Integer.parseInt(arg[1]);
+						int v; //= Integer.parseInt(arg[1]);
 						String m = arg[2];
 
+						if (arg[1].startsWith("#"))
+						{
+							arg[1] = arg[1].replace("#", "");
+							int valcf = Integer.parseInt(arg[1]);
+							v = val[valcf];
+							//print("Zelle!");
+						}
+						else
+						{
+							v = Integer.parseInt(arg[1]);
+						}
+
 						//print("Cell: "+ce);
-						//print("Vall: "+v);
+						//print("Vall/Cell: "+v);
 						//print("Poin: "+m);
 
 						if (val[ce] > v)
