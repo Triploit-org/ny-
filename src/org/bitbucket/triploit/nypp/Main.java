@@ -1,8 +1,8 @@
 package org.bitbucket.triploit.nypp;
 
-import java.io.IOException;
-
 import Statements.Files;
+
+import java.io.IOException;
 	
 public class Main {
 
@@ -11,7 +11,7 @@ public class Main {
 	
 	public static void main(String[] args) throws IOException 
 	{ 
-		System.out.println("Ny++ Interpreter - V0.4.8\nCopyright (c) Triploit\nAlle Rechte vorbehalten.\n");
+		System.out.println("Ny++ Interpreter - V10916\nCopyright (c) Triploit\nAlle Rechte vorbehalten.\n");
 		
 		Files.parseFile(args[0]);
 		

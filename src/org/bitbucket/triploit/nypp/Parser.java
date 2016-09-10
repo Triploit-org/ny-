@@ -1,6 +1,7 @@
 package org.bitbucket.triploit.nypp;
 
 import java.io.IOException;
+import java.lang.management.OperatingSystemMXBean;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -13,7 +14,8 @@ public class Parser {
 
 	public static List<String> gtn = new ArrayList<String>();
 
-	public static int[] val = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+	public static int __MaxCell = 31;
+	public static int[] val = new int[100000];
 	public static int valc = 0;
 	public static int ln = 0;
 
@@ -228,6 +230,10 @@ public class Parser {
 							int random = rand.nextInt((9999 - 0) + 1) + 0;
 							val[valc] = random;
 						}
+						else if (nm.equalsIgnoreCase("fos"))
+						{
+							val[valc] = OpSys.System.getOSNum();
+						}
 						else
 						{
 							val[valc] = Integer.parseInt(nm);
@@ -333,9 +339,55 @@ public class Parser {
 
 					try
 					{
-						valc = Integer.parseInt(nm);
+						if (valc < __MaxCell)
+							valc = Integer.parseInt(nm);
+						else if (valc >= __MaxCell)
+							System.out.println("[CELL] Konnte nicht auf Zelle #"+nm+" wechseln da sie nicht definiert ist!");
 						//print("CELL: "+valc);
 						//print("CELL VALUE: "+val[valc]);
+					}
+					catch (Exception ex)
+					{
+						print("[CELL] Ist \""+nm+"\" eine Zahl oder fehlt ein \";\"?");
+						return 0;
+					}
+				}
+
+				// DEF
+
+				if (cmd.equals("DMC"))
+				{
+					for(int x = i + 1; (src[x]+"").matches("\\s"); x++)
+					{
+						i = x;
+					}
+
+					i = i + 1;
+					String nm = "";
+
+					try
+					{
+						for(int x = i; !(src[x]+"").matches(";"); x++)
+						{
+							nm += src[x];
+							i = x;
+							//print("Hohle Zahl: "+nm.replace(";", ""));
+						}
+					}
+					catch(Exception ex)
+					{
+						print("Wurde nach einem Befehl vieleleicht ein \";\" vergessen?");
+					}
+
+					nm = nm.replace("#", "");
+					nm = nm.replace(" ", "");
+					nm = nm.replace(";", "");
+
+					//print("[CELL] \""+nm+"\"");
+
+					try
+					{
+						__MaxCell = Integer.parseInt(nm);
 					}
 					catch (Exception ex)
 					{
@@ -1225,7 +1277,7 @@ public class Parser {
 						if (con[0] != "")
 						{
 							cell = Integer.parseInt(con[0].replace("#", ""));
-							if (cell < val.length && cell >= 0)
+							if (cell < __MaxCell && cell >= 0)
 								System.out.print("");
 							else
 								System.out.println("[IF] Zelle nicht gefunden!");

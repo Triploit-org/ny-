@@ -7,7 +7,6 @@
   say   "2. Nochmal";@
   say   "3. Sag Nochmal Hallo und Ende";@
   say   "4. Ende";@
-  say   "5. Öffne 'ne andere Datei";@
 
   say   "> ";
   del   #0;
@@ -17,10 +16,9 @@
   eq    #0,2,B; ? IF #0 == 2 THEN GOTO B ?
   eq    #0,3,C; ? ... ?
   eq    #0,4,D;
-  eq    #0,5,E;
 
   leq   #0,1,ERR; ? IF #0 < 1 GOTO ERR ?
-  geq   #0,5,ERR; ? IF #0 > 4 GOTO ERR ?
+  geq   #0,4,ERR; ? IF #0 > 4 GOTO ERR ?
 
   neq   #0,1,ERR; ? Kommentar ?
   neq   #0,2,ERR; ? IF #0 != 2 GOTO ERR ?
@@ -70,12 +68,6 @@
 
 {D}
   say     "Programme beendet!";@
-  [end]
-
-{E}
-  op      openme.ny;
-  say     "Datei wurde beendet!";@
-  gt      main;
   [end]
 
 [end]
