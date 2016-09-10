@@ -17,7 +17,7 @@ Auch wenn sie vom Syntax her, Assmbler ähnlich sieht, ist sie jedoch komplett a
 
 ###**0.1 Der Interpreter**
 
-Der Interpreter liegt im Verzeichnis `Interpreter/jar/NÝ++.jar`, es wäre möglich ihn mit dem Befehl `java -jar NÝ++.jar [Dateiname.ny]` auszuführen.
+Der Interpreter liegt im Verzeichnis `Interpreter/jar/ny++.jar`, es wäre möglich ihn mit dem Befehl `java -jar ny++.jar [Dateiname.ny]` auszuführen.
 
 ###**0.2 Das Starten von Dateien**
 
