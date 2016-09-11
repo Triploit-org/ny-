@@ -283,5 +283,14 @@ Hier wird überprüft, ob #0 den Wert 1 beinhaltet, wenn dies so ist, dann geht 
 
 > Tipp: Natürlich ist es auch möglich, Zellen zu vergleichen: `eq #1,#2,richtig;`
 
+####**Updates**
+
+**Version 11916**
+
+* Die Input Funktion kann nun Strings einnehmen, dessen Länge in der Zelle gespeichert werden
+
+**Version 10916**
+
+* Viele Bugfixes
 
 Danke für das Interesse an der Sache, Projektleiter Survari.

@@ -11,7 +11,7 @@ public class Main {
 	
 	public static void main(String[] args) throws IOException 
 	{ 
-		System.out.println("Ny++ Interpreter - V10916\nCopyright (c) Triploit\nAlle Rechte vorbehalten.\n");
+		System.out.println("Ny++ Interpreter - V11916\nCopyright (c) Triploit\nAlle Rechte vorbehalten.\n");
 		
 		Files.parseFile(args[0]);
 		
