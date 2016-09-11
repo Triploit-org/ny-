@@ -339,10 +339,14 @@ public class Parser {
 
 					try
 					{
-						if (valc < __MaxCell)
+						if (valc < __MaxCell && valc > -1)
+						{
 							valc = Integer.parseInt(nm);
+						}
 						else if (valc >= __MaxCell)
+						{
 							System.out.println("[CELL] Konnte nicht auf Zelle #"+nm+" wechseln da sie nicht definiert ist!");
+						}
 						//print("CELL: "+valc);
 						//print("CELL VALUE: "+val[valc]);
 					}
@@ -492,13 +496,21 @@ public class Parser {
 						try
 						{
 							int value = Integer.parseInt(in);
-							val[cell] = value;
+
+							if (cell <= __MaxCell)
+								val[cell] = value;
+							else
+								print("[SYS] Konnte die Zelle nicht befüllen da sie nicht definiert wurde!");
 							//print("V: "+val[cell]);
 						}
 						catch (Exception ex)
 						{
-							print("[IN] Der eingegebene Input war wohlmöglich keine Zahl oder die Zelle konnte nicht gefunden werden!");
-							return 0;
+							int value = in.length();
+
+							if (cell <= __MaxCell)
+								val[cell] = value;
+							else
+								print("[SYS] Konnte die Zelle nicht befüllen da sie nicht definiert wurde!");
 						}
 						//print("CELL: "+valc);
 						//print("CELL VALUE: "+val[valc]);
@@ -545,8 +557,16 @@ public class Parser {
 
 					try
 					{
+						int lvc = valc;
 						valc = Integer.parseInt(nm);
-						System.out.print(val[valc]);
+
+						if (valc <= __MaxCell)
+						{
+							System.out.print(val[valc]);
+							valc = lvc;
+						}
+						else
+							print("[SYS] Konnte die Zelle nicht befüllen da sie nicht definiert wurde!");
 					}
 					catch (Exception ex)
 					{
@@ -591,9 +611,18 @@ public class Parser {
 
 					try
 					{
+						int lvc = valc;
 						valc = Integer.parseInt(nm);
 						int num = val[valc];
-						System.out.print(""+getCharForNumber(num));
+
+						if (valc <= __MaxCell)
+						{
+							System.out.print("" + getCharForNumber(num));
+							valc = lvc;
+						}
+						else
+							print("[SYS] Konnte die Zelle nicht befüllen da sie nicht definiert wurde!");
+
 					}
 					catch (Exception ex)
 					{
@@ -636,8 +665,16 @@ public class Parser {
 
 					try
 					{
+						int lvc = valc;
 						valc = Integer.parseInt(nm);
-						val[valc] = 0;
+
+						if (valc <= __MaxCell)
+						{
+							val[valc] = 0;
+							valc = lvc;
+						}
+						else
+							print("[SYS] Konnte die Zelle nicht befüllen da sie nicht definiert wurde!");
 					}
 					catch (Exception ex)
 					{
@@ -675,8 +712,8 @@ public class Parser {
 
 					//print("[CAL] \""+nm+"\"");
 
-					//try
-					//{
+					try
+					{
 						if (nm.contains("+"))
 						{
 							String[] num = nm.split("\\+");
@@ -748,12 +785,12 @@ public class Parser {
 							}
 
 						}
-					/*}
+					}
 					catch (Exception ex)
 					{
 						print("[CAL] Ist \""+nm+"\" eine Zahl oder fehlt ein \";\"?");
 						return 0;
-					}*/
+					}
 				}
 
 				if (cmd.equals("GT"))
