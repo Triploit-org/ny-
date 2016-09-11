@@ -292,5 +292,6 @@ Hier wird überprüft, ob #0 den Wert 1 beinhaltet, wenn dies so ist, dann geht 
 **Version 10916**
 
 * Viele Bugfixes
+* Es können nun bis zu Tausend Zellen verwendet werden die mit "dmc #[MaximaleZelle]" deklariert weren können ein Beispiel dazu steht in der opennme.ny Datei
 
 Danke für das Interesse an der Sache, Projektleiter Survari.
