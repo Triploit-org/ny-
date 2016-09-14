@@ -30,7 +30,7 @@ Um den Interpreter gleich im Interpreter-Verzeichnis ausführen zu können gibt 
 Öffne die CMD im Interpreter-Verzeichnis und Tippe `nypp [DeineDatei.ny]` ein und die Datei wird ausgeführt.
 
 ####**Beispiel - Alle OS's**
-Wendet sattt `[DeineDatei.ny]`, mal `test.ny` und die Datei test.ny wird ausgeführt. In der Datei `test.ny` sind ca 76% der Programmiersprache enthalten.
+Wendet satt `[DeineDatei.ny]`, mal `test.ny` und die Datei test.ny wird ausgeführt. In der Datei `test.ny` sind ca 76% der Programmiersprache enthalten.
 
 --------------------
 

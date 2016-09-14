@@ -785,6 +785,24 @@ public class Parser {
 							}
 
 						}
+						else if (nm.contains("%"))
+						{
+							String[] num = nm.split("\\%");
+
+							if (num.length < 2 || num.length > 2)
+							{
+								print("[CAL] Es wurden zu viele/wenige Argumente angegeben!"+num.length);
+							}
+							else
+							{
+								int v1 = Integer.parseInt(num[0]);
+								int v2 = Integer.parseInt(num[1]);
+
+								val[v1] = val[v1] % val[v2];
+								val[v2] = 0;
+							}
+
+						}
 					}
 					catch (Exception ex)
 					{

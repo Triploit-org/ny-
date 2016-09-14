@@ -35,7 +35,7 @@
 {A}
   cell    #8;
   add     (rnd);
-  say     "Gib mal 'ne Zahl ein: (Beispiel: ";
+  say     "Gib mal ne Zahl ein: (Beispiel: ";
   prv     #8;
   say     ")";@
   cell    #4;
